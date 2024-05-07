@@ -374,11 +374,11 @@ pub struct TradeHistory {
     pub is_best_match: bool,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+// 根据工作区文件,创建一个PriceStats列表
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(untagged)]
-pub enum PricesStats {
-    AllPriceStats(Vec<PriceStats>),
+pub struct PriceStatsList {
+    pub price_stats: Vec<PriceStats>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
