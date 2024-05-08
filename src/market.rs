@@ -157,6 +157,9 @@ impl Market {
         self.client.get(API_V3_24H_TICKER, Some(&request)).await
     }
 
+    pub async fn get_24h_all_prices_stats(&self) -> Result<Prices> { self.client.get(API_V3_24H_TICKER, None).await }
+
+
     /// Get aggregated historical trades.
     /// If you provide start_time, you also need to provide end_time.
     /// If from_id, start_time and end_time are omitted, the most recent trades are fetched.
