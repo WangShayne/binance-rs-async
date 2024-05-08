@@ -204,20 +204,17 @@ impl Client {
     }
 
     async fn handler<T: de::DeserializeOwned>(&self, response: Response) -> Result<T> {
-        let text = response.json().await?;
-        println!("{:?}", text);
-        Err(Error::Msg("Received response".to_string()))
-        // match response.status() {
-        //     StatusCode::OK => Ok(response.json().await?),
-        //     StatusCode::INTERNAL_SERVER_ERROR => Err(Error::InternalServerError),
-        //     StatusCode::SERVICE_UNAVAILABLE => Err(Error::ServiceUnavailable),
-        //     StatusCode::UNAUTHORIZED => Err(Error::Unauthorized),
-        //     StatusCode::BAD_REQUEST => {
-        //         let error: BinanceContentError = response.json().await?;
-        //         Err(handle_content_error(error))
-        //     }
-        //     s => Err(Error::Msg(format!("Received response: {s:?}"))),
-        // }
+        match response.status() {
+            StatusCode::OK => Ok(response.json().await?),
+            StatusCode::INTERNAL_SERVER_ERROR => Err(Error::InternalServerError),
+            StatusCode::SERVICE_UNAVAILABLE => Err(Error::ServiceUnavailable),
+            StatusCode::UNAUTHORIZED => Err(Error::Unauthorized),
+            StatusCode::BAD_REQUEST => {
+                let error: BinanceContentError = response.json().await?;
+                Err(handle_content_error(error))
+            }
+            s => Err(Error::Msg(format!("Received response: {s:?}"))),
+        }
     }
 }
 
