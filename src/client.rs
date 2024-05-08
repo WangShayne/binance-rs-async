@@ -109,6 +109,7 @@ impl Client {
             .unwrap_or_else(|| format!("{}{}", self.host, endpoint));
 
         let response = self.inner.get(&url).send().await?;
+        println!("{:?}", response);
 
         self.handler(response).await
     }
