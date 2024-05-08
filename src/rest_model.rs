@@ -374,7 +374,14 @@ pub struct TradeHistory {
     pub is_best_match: bool,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+#[serde(rename_all = "camelCase")]
+#[serde(untagged)]
+pub enum PricesStats {
+    AllPricesStats(Vec<PriceStats>),
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 #[serde(rename_all = "camelCase")]
 pub struct PriceStats {
     pub price_change: String,
