@@ -205,6 +205,17 @@ impl Client {
 
     async fn handler<T: de::DeserializeOwned>(&self, response: Response) -> Result<T> {
         match response.status() {
+            // StatusCode::OK => {
+            //     let txt = response.text().await?;
+            //     println!("Response: {}", txt);
+
+            //     // 将txt写入文件
+            //     let mut file = std::fs::File::create("response.json").unwrap();
+            //     file.write_all(txt.as_bytes()).unwrap();
+
+            //     // Ok(response.json().await?)
+            //     Err(Error::Msg("Not implemented".to_string()))
+            // }
             StatusCode::OK => Ok(response.json().await?),
             StatusCode::INTERNAL_SERVER_ERROR => Err(Error::InternalServerError),
             StatusCode::SERVICE_UNAVAILABLE => Err(Error::ServiceUnavailable),
