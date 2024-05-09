@@ -377,8 +377,8 @@ pub struct TradeHistory {
 // 根据工作区文件,创建一个PriceStats列表
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct PriceStatsList {
-    pub price_stats: Vec<PriceStats>,
+pub enum PriceStatsList {
+    AllPriceStats(Vec<PriceStats>)
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
