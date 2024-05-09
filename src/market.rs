@@ -161,7 +161,7 @@ impl Market {
         self.client.get(API_V3_24H_TICKER, Some(&request)).await
     }
 
-    pub async fn get_24h_all_prices_stats(&self) -> Result<PricesStats> {
+    pub async fn get_24h_all_prices_stats(&self) -> Result<PriceStatsList> {
         self.client.get(API_V3_24H_TICKER, None).await
     }
 
